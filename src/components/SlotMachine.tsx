@@ -164,7 +164,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
                     <span className={`font-bold ${
                       spin.result === 'WIN' ? 'text-yellow-400' : 'text-orange-400'
                     }`}>
-                      {spin.result === 'WIN' ? '+' : '-'}{spin.amount} 🧢
+                      {spin.result === 'WIN' ? '+' : '-'}{spin.amount} 💰
                     </span>
                   </div>
                 </div>

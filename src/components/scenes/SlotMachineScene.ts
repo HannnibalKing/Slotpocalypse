@@ -246,42 +246,75 @@ export default class SlotMachineScene extends Phaser.Scene {
   private checkWin() {
     this.spinning = false;
 
-    // Get the center symbol from each reel (index 2 - middle row)
-    const centerSymbols = this.reels.map(reel => {
-      const centerSymbol = reel.symbols[2];
-      return centerSymbol.icon;
+    // Get ALL symbols from the 3x3 grid
+    const grid: string[][] = [];
+    for (let col = 0; col < 3; col++) {
+      grid[col] = [];
+      for (let row = 0; row < 5; row++) {
+        grid[col][row] = this.reels[col].symbols[row].icon;
+      }
+    }
+
+    // Define ALL 8 PAYLINES for 3x3 grid
+    const PAYLINES = [
+      // Horizontal lines (3 lines)
+      [[0, 1], [1, 1], [2, 1]], // Top row
+      [[0, 2], [1, 2], [2, 2]], // Middle row (center)
+      [[0, 3], [1, 3], [2, 3]], // Bottom row
+      
+      // Vertical lines (3 lines)
+      [[0, 1], [0, 2], [0, 3]], // Left column
+      [[1, 1], [1, 2], [1, 3]], // Center column
+      [[2, 1], [2, 2], [2, 3]], // Right column
+      
+      // Diagonal lines (2 lines)
+      [[0, 1], [1, 2], [2, 3]], // Top-left to bottom-right
+      [[0, 3], [1, 2], [2, 1]], // Bottom-left to top-right
+    ];
+
+    // Check ALL paylines for wins
+    let totalWinAmount = 0;
+    const winningLines: Array<{ line: number[][], symbols: string[], amount: number }> = [];
+
+    PAYLINES.forEach((payline, index) => {
+      const symbols = payline.map(([col, row]) => grid[col][row]);
+      
+      // Check if all 3 symbols match
+      const allMatch = symbols.every(symbol => symbol === symbols[0]);
+      
+      if (allMatch) {
+        const symbol = symbols[0];
+        const baseMultipliers: { [key: string]: number } = {
+          '💀': 3,
+          '💊': 5,
+          '🎯': 8,
+          '⚙': 15,
+          '🔫': 25,
+          '☢': 100
+        };
+        
+        const multiplier = baseMultipliers[symbol] || 2;
+        const lineWin = this.betAmount * multiplier * this.objectives.bonusMultiplier;
+        
+        totalWinAmount += lineWin;
+        winningLines.push({ line: payline, symbols, amount: lineWin });
+        
+        console.log(`WIN on payline ${index + 1}: ${symbols.join(' ')} = ${lineWin} caps`);
+      }
     });
 
-    console.log('Center Line Result:', centerSymbols);
-
-    // 🎯 PINBALL OBJECTIVES UPDATE
+    // 🎯 PINBALL OBJECTIVES UPDATE - use center line for collection
+    const centerSymbols = [grid[0][2], grid[1][2], grid[2][2]];
     centerSymbols.forEach(symbol => this.objectives.symbolsCollected.add(symbol));
     
-    // STRICT WIN DETECTION: Only check center horizontal line
-    // Must have ALL 3 symbols matching (no pairs!)
-    const allMatch = centerSymbols.every(symbol => symbol === centerSymbols[0]);
-    
-    let winAmount = 0;
-    if (allMatch) {
-      // All 3 match on center line - WIN!
-      const symbol = centerSymbols[0];
-      const baseMultipliers: { [key: string]: number } = {
-        '💀': 3,
-        '💊': 5,
-        '🎯': 8,
-        '⚙': 15,
-        '🔫': 25,
-        '☢': 100
-      };
-      
-      const baseMultiplier = baseMultipliers[symbol] || 2;
-      
-      // 🎯 Apply bonus multiplier from objectives!
-      winAmount = this.betAmount * baseMultiplier * this.objectives.bonusMultiplier;
+    let winAmount = totalWinAmount;
+    if (winAmount > 0) {
+      // WIN! Multiple paylines can win simultaneously
+      console.log(`TOTAL WIN: ${winAmount} caps from ${winningLines.length} paylines!`);
       
       // Update objectives
       this.objectives.spinStreak++;
-      this.objectives.jackpotProgress += 5;
+      this.objectives.jackpotProgress += (5 * winningLines.length); // More for multiple lines
       
       // Increase bonus multiplier with streak
       if (this.objectives.spinStreak % 3 === 0) {
@@ -295,8 +328,10 @@ export default class SlotMachineScene extends Phaser.Scene {
         this.objectives.symbolsCollected.clear();
       }
       
-      // Jackpot achieved!
-      const isJackpot = this.objectives.jackpotProgress >= 100;
+      // Check if any line has Nuclear symbol for jackpot
+      const hasNuclearWin = winningLines.some(line => line.symbols[0] === '☢');
+      const isJackpot = hasNuclearWin || this.objectives.jackpotProgress >= 100;
+      
       if (isJackpot) {
         winAmount *= 3;
         this.objectives.jackpotProgress = 0;
@@ -306,8 +341,10 @@ export default class SlotMachineScene extends Phaser.Scene {
         });
       }
 
-      // Show win animation with horizontal line (all 3 reels)
-      this.showWinAnimation(winAmount, 'horizontal', [0, 1, 2], isJackpot);
+      // Show win animation for the first winning line (simplified)
+      const firstWinningLine = winningLines[0];
+      const reelIndices = firstWinningLine.line.map(([col, _]) => col);
+      this.showWinAnimation(winAmount, 'horizontal', reelIndices, isJackpot);
     } else {
       // NO WIN - Reset streak on loss
       this.objectives.spinStreak = 0;

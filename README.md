@@ -11,8 +11,13 @@ A post-apocalyptic slot machine game inspired by Fallout: New Vegas! Built with 
 - **Courier Quotes** - Classic Fallout New Vegas references
 
 ### Gameplay
-- **3 Spinning Reels** - Smooth Phaser 3 animations
+- **3x3 Grid** - Classic 3 reel, 3 row slot machine
+- **8 Ways to Win** - Horizontal, Vertical, and Diagonal paylines!
+  - 3 Horizontal lines (top, middle, bottom)
+  - 3 Vertical lines (left, center, right)
+  - 2 Diagonal lines (corner to corner)
 - **6 Wasteland Symbols** - Each with unique multipliers
+- **Multiple Line Wins** - Win on multiple paylines simultaneously!
 - **Variable Betting** - 10, 25, 50, or 100 caps per spin
 - **Nuclear Jackpot** - Win 100x your bet with ☢️☢️☢️!
 - **Radiation Effects** - Green glow particles and explosion animations
