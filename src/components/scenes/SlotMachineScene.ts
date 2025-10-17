@@ -276,7 +276,7 @@ export default class SlotMachineScene extends Phaser.Scene {
       const baseMultipliers: { [key: string]: number } = {
         '💀': 3,
         '💊': 5,
-        '�': 8,
+        '🎯': 8,
         '⚙': 15,
         '🔫': 25,
         '☢': 100
@@ -361,7 +361,7 @@ export default class SlotMachineScene extends Phaser.Scene {
   }
 
   private showWinAnimation(amount: number, direction: 'horizontal' | 'vertical' | 'diagonal', reelIndices: number[], isJackpot: boolean = false) {
-    const winText = this.add.text(400, 510, `+${amount} BOTTLE CAPS`, {
+    const winText = this.add.text(400, 510, `+${amount} 💰 CAPS`, {
       fontSize: '24px',
       color: '#ffff00',
       fontStyle: 'bold',

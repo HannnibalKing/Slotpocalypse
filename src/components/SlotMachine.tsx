@@ -197,8 +197,8 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-gradient-to-br from-green-900 to-emerald-900 p-8 rounded-xl shadow-2xl max-w-md border-4 border-green-500 animate-pulse" style={{ fontFamily: 'Courier New, monospace' }}>
             <h3 className="text-4xl font-bold mb-4 text-green-400">💰 WASTELAND WELFARE 💰</h3>
-            <p className="mb-2 text-green-200 text-xl">You&apos;re out of bottle caps!</p>
-            <p className="mb-6 text-green-300 text-lg">The NCR is giving you <span className="text-yellow-400 font-bold">10,000 CAPS</span> to keep playing!</p>
+            <p className="mb-2 text-green-200 text-xl">You&apos;re out of caps!</p>
+            <p className="mb-6 text-green-300 text-lg">The NCR is giving you <span className="text-yellow-400 font-bold">10,000 💰 CAPS</span> to keep playing!</p>
             <p className="text-sm text-green-400 italic">&quot;Nobody gets left behind in the Mojave.&quot; - NCR</p>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           {/* Bet Amount */}
           <div>
-            <label className="block text-sm font-bold mb-2 text-orange-300">BET AMOUNT (BOTTLE CAPS)</label>
+            <label className="block text-sm font-bold mb-2 text-orange-300">BET AMOUNT (💰 CAPS)</label>
             <div className="flex gap-2">
               {[10, 25, 50, 100].map((amount) => (
                 <button
@@ -252,7 +252,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
             </div>
             <div className="bg-orange-950 rounded p-2 border-2 border-orange-800">
               <p className="text-xs text-orange-400 font-bold">CURRENT BET</p>
-              <p className="font-bold text-orange-300">{betAmount} Caps</p>
+              <p className="font-bold text-orange-300">{betAmount} 💰 Caps</p>
             </div>
           </div>
         </div>
@@ -260,7 +260,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         {/* Warning */}
         {credits < betAmount && (
           <div className="bg-red-900 bg-opacity-70 border-2 border-red-600 rounded p-3 text-center">
-            <p className="font-bold text-red-200">☢️ Insufficient bottle caps! Lower your bet or scavenge more.</p>
+            <p className="font-bold text-red-200">☢️ Insufficient caps! Lower your bet or scavenge more.</p>
           </div>
         )}
       </div>

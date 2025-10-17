@@ -32,7 +32,7 @@ export default function Home() {
         <div className="bg-gradient-to-r from-orange-900 to-red-900 rounded-lg p-4 shadow-2xl border-4 border-orange-600" style={{ fontFamily: 'Courier New, monospace' }}>
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-orange-200 font-bold">BOTTLE CAPS</p>
+              <p className="text-sm text-orange-200 font-bold">💰 CAPS BALANCE</p>
               <p className="text-5xl font-bold text-orange-400" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
                 {credits.toLocaleString()}
               </p>
