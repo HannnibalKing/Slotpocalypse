@@ -64,7 +64,7 @@ export default function Home() {
           <p className="text-orange-500 font-bold text-lg">⚠️ WASTELAND RESPONSIBLE GAMING ⚠️</p>
           <p className="text-orange-300">This is a demo game for entertainment purposes only.</p>
           <p className="text-orange-300">Set limits, take breaks, hydrate with purified water!</p>
-          <p className="text-orange-300 italic">"War Never Changes, but your habits can."</p>
+          <p className="text-orange-300 italic">&quot;War Never Changes, but your habits can.&quot;</p>
           <div className="flex justify-center gap-4 mt-4">
             <span className="px-3 py-1 bg-orange-900 rounded border border-orange-600">18+</span>
             <span className="px-3 py-1 bg-orange-900 rounded border border-orange-600">NCR Approved</span>

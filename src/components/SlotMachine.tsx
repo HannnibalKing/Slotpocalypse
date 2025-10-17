@@ -98,6 +98,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         phaserGameRef.current = null;
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsPlaying, setCredits]);
 
   // 🎰 Safety Net: Reset to 10k caps if you run out!
@@ -178,9 +179,9 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-gradient-to-br from-orange-900 to-red-900 p-8 rounded-xl shadow-2xl max-w-md border-4 border-orange-600" style={{ fontFamily: 'Courier New, monospace' }}>
             <h3 className="text-3xl font-bold mb-4 text-orange-400">☢️ RADIATION WARNING ☢️</h3>
-            <p className="mb-2 text-orange-200 text-lg">You've been in the wasteland for {formatTime(sessionTime)}.</p>
+            <p className="mb-2 text-orange-200 text-lg">You&apos;ve been in the wasteland for {formatTime(sessionTime)}.</p>
             <p className="mb-6 text-orange-300">Take a break! Find shelter, drink purified water, and check your RAD levels!</p>
-            <p className="text-sm text-orange-400 italic mb-4">"Even the Courier needs rest."</p>
+            <p className="text-sm text-orange-400 italic mb-4">&quot;Even the Courier needs rest.&quot;</p>
             <button
               onClick={() => setShowBreakReminder(false)}
               className="w-full bg-orange-500 hover:bg-orange-400 text-black font-bold py-3 px-6 rounded-lg transition border-2 border-orange-700"
@@ -196,9 +197,9 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-gradient-to-br from-green-900 to-emerald-900 p-8 rounded-xl shadow-2xl max-w-md border-4 border-green-500 animate-pulse" style={{ fontFamily: 'Courier New, monospace' }}>
             <h3 className="text-4xl font-bold mb-4 text-green-400">💰 WASTELAND WELFARE 💰</h3>
-            <p className="mb-2 text-green-200 text-xl">You're out of bottle caps!</p>
+            <p className="mb-2 text-green-200 text-xl">You&apos;re out of bottle caps!</p>
             <p className="mb-6 text-green-300 text-lg">The NCR is giving you <span className="text-yellow-400 font-bold">10,000 CAPS</span> to keep playing!</p>
-            <p className="text-sm text-green-400 italic">"Nobody gets left behind in the Mojave." - NCR</p>
+            <p className="text-sm text-green-400 italic">&quot;Nobody gets left behind in the Mojave.&quot; - NCR</p>
           </div>
         </div>
       )}
@@ -334,7 +335,7 @@ export default function SlotMachine({ credits, setCredits, isPlaying, setIsPlayi
         </div>
         
         <p className="text-center mt-6 text-orange-400 italic text-sm">
-          "The house always wins... unless you're lucky." - Mr. House
+          &quot;The house always wins... unless you&apos;re lucky.&quot; - Mr. House
         </p>
       </div>
     </div>

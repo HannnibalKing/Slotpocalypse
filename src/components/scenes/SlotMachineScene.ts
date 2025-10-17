@@ -1,4 +1,20 @@
-import Phaser from 'phaser';
+Frontend & Backend (Unified):
+├── Next.js 14.2.33 (App Router)
+├── TypeScript
+├── React 18.2.0
+└── Axios
+
+Database (if needed):
+├── MongoDB Atlas (Free tier)
+└── Mongoose 7.5.0
+
+Styling:
+├── CSS Modules or globals.css
+└── Your choice of theme!
+
+Deployment:
+├── Vercel (Serverless)
+└── GitHub (CI/CD)import Phaser from 'phaser';
 
 interface Symbol {
   sprite: Phaser.GameObjects.Text;
@@ -78,7 +94,7 @@ export default class SlotMachineScene extends Phaser.Scene {
     frameGraphics.fillCircle(635, 150, 20);
     frameGraphics.fillCircle(155, 490, 18);
 
-    // Create simple particle texture first
+    // Create simple particle texture first (used for effects)
     const graphics = this.add.graphics();
     graphics.fillStyle(0xff6b35, 1);
     graphics.fillCircle(4, 4, 4);
@@ -463,7 +479,8 @@ export default class SlotMachineScene extends Phaser.Scene {
   }
 
   private createObjectivesDisplay() {
-    const objectivesBg = this.add.rectangle(400, 540, 600, 35, 0x000000, 0.7);
+    // Background for objectives (used for visual separation)
+    this.add.rectangle(400, 540, 600, 35, 0x000000, 0.7);
     
     const objectivesText = this.add.text(400, 540, this.getObjectivesText(), {
       fontSize: '14px',
