@@ -246,32 +246,24 @@ export default class SlotMachineScene extends Phaser.Scene {
   private checkWin() {
     this.spinning = false;
 
-    // Get the center symbol from each reel (index 2)
+    // Get the center symbol from each reel (index 2 - middle row)
     const centerSymbols = this.reels.map(reel => {
       const centerSymbol = reel.symbols[2];
       return centerSymbol.icon;
     });
 
-    console.log('Result:', centerSymbols);
+    console.log('Center Line Result:', centerSymbols);
 
     // 🎯 PINBALL OBJECTIVES UPDATE
     centerSymbols.forEach(symbol => this.objectives.symbolsCollected.add(symbol));
     
-    // Check for matches
+    // STRICT WIN DETECTION: Only check center horizontal line
+    // Must have ALL 3 symbols matching (no pairs!)
     const allMatch = centerSymbols.every(symbol => symbol === centerSymbols[0]);
-    
-    // Count occurrences of each symbol
-    const symbolCounts: { [key: string]: number } = {};
-    centerSymbols.forEach(symbol => {
-      symbolCounts[symbol] = (symbolCounts[symbol] || 0) + 1;
-    });
-    
-    // Find if we have any pairs (2 matching symbols)
-    const hasPair = Object.values(symbolCounts).some(count => count === 2);
     
     let winAmount = 0;
     if (allMatch) {
-      // All 3 match - BIG WIN!
+      // All 3 match on center line - WIN!
       const symbol = centerSymbols[0];
       const baseMultipliers: { [key: string]: number } = {
         '💀': 3,
@@ -314,42 +306,10 @@ export default class SlotMachineScene extends Phaser.Scene {
         });
       }
 
-      // Show win animation with horizontal line
+      // Show win animation with horizontal line (all 3 reels)
       this.showWinAnimation(winAmount, 'horizontal', [0, 1, 2], isJackpot);
-    } else if (hasPair) {
-      // 2 matching symbols - SMALL WIN!
-      const pairSymbol = Object.keys(symbolCounts).find(key => symbolCounts[key] === 2);
-      
-      if (pairSymbol) {
-        const pairMultipliers: { [key: string]: number } = {
-          '💀': 1.5,
-          '💊': 2,
-          '🎯': 2.5,
-          '⚙': 3,
-          '🔫': 4,
-          '☢': 10
-        };
-        
-        const pairMultiplier = pairMultipliers[pairSymbol] || 1;
-        winAmount = this.betAmount * pairMultiplier;
-        
-        // Small streak increment
-        this.objectives.spinStreak++;
-        this.objectives.jackpotProgress += 1;
-        
-        // Find which reels have the pair
-        const pairReels: number[] = [];
-        centerSymbols.forEach((symbol, index) => {
-          if (symbol === pairSymbol) {
-            pairReels.push(index);
-          }
-        });
-        
-        // Show win animation with custom highlighting
-        this.showWinAnimation(winAmount, 'horizontal', pairReels);
-      }
     } else {
-      // Reset streak on loss
+      // NO WIN - Reset streak on loss
       this.objectives.spinStreak = 0;
       this.objectives.bonusMultiplier = Math.max(1, this.objectives.bonusMultiplier - 0.1);
     }
