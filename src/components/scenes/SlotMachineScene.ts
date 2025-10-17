@@ -1,20 +1,4 @@
-Frontend & Backend (Unified):
-├── Next.js 14.2.33 (App Router)
-├── TypeScript
-├── React 18.2.0
-└── Axios
-
-Database (if needed):
-├── MongoDB Atlas (Free tier)
-└── Mongoose 7.5.0
-
-Styling:
-├── CSS Modules or globals.css
-└── Your choice of theme!
-
-Deployment:
-├── Vercel (Serverless)
-└── GitHub (CI/CD)import Phaser from 'phaser';
+import Phaser from 'phaser';
 
 interface Symbol {
   sprite: Phaser.GameObjects.Text;
